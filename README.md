@@ -10,3 +10,4 @@
 
 ### Этапы работы:
 * [План проекта](https://github.com/twilyfm/HSE_Anomaly_Detection/blob/master/Checkpoint_%E2%84%961.md)
+* [Описание датасета](https://github.com/twilyfm/HSE_Anomaly_Detection/blob/master/Checkpoint_%E2%84%962.md)
