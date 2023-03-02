@@ -1,6 +1,6 @@
 # Описание выбранного датасета
 
- [Набор данных об онлайн транзакциях](https://drive.google.com/drive/folders/1q-mc0rfqrOY5UtxbbsblTrcrmtZoNp00?usp=sharing)
+ [Набор данных об онлайн транзакциях](https://www.kaggle.com/competitions/ieee-fraud-detection/overview)
 
 
 Данные поделены на таблицы transaction и identity и содержат 590 540 транзакций, доля которых является мошенническими. Из всех транзакций только 20 663 являются незаконными, то есть на положительный класс 
