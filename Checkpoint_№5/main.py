@@ -14,11 +14,11 @@ from imblearn.under_sampling import RandomUnderSampler
 from sklearn.metrics import classification_report, auc
 from sklearn.model_selection import train_test_split
 
-PATH_TO_DF_ = "./merge_filled_without_drop.parquet" # объединенные transaction и identity
+PATH_TO_DF_ = "./merge_filled_without_drop.parquet"  # объединенные transaction и identity
 
 
 def main(train=False):
-    df=pd.read_parquet(PATH_TO_DF_)
+    df = pd.read_parquet(PATH_TO_DF_)
     merged = reduce_memory_usage(df)
     X = merged.drop('isFraud', axis=1)
     y = merged['isFraud']
@@ -34,7 +34,7 @@ def main(train=False):
 
     categorical_features_indices = np.where(X.dtypes == 'category')[0]
 
-    if train == True:
+    if train is True:
         print("train_mode = True")
         study = optuna.create_study(direction="maximize")
 
@@ -75,7 +75,5 @@ def main(train=False):
         plot_roc_curve(fpr, tpr, roc_auc=roc_auc)
 
 
-
 if __name__ == "__main__":
     main(train=False)
-

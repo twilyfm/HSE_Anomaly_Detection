@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from catboost import CatBoostClassifier
 from sklearn.metrics import roc_auc_score
-import optuna
+
 
 def reduce_memory_usage(merged):
     """Сокращает объем, занимаемый датасетом в памяти за счет изменения типов столбцов;
@@ -36,9 +36,10 @@ def reduce_memory_usage(merged):
 
     return merged
 
+
 def plot_roc_curve(x, y, roc_auc):
     plt.figure(figsize=(16, 8))
-    lw=2
+    lw = 2
 
     plt.plot(x, y, color='darkorange',
              lw=lw, label='ROC curve (area = %0.2f)' % roc_auc, alpha=0.5)
@@ -56,9 +57,10 @@ def plot_roc_curve(x, y, roc_auc):
     plt.legend(loc="lower right", fontsize=16)
     return plt.show()
 
+
 def catboost_with_params_for_train(trial, X_train, X_test, y_train, y_test, df):
-    X= df.drop('isFraud', axis=1)
-    y= df['isFraud']
+    X = df.drop('isFraud', axis=1)
+    # y = df['isFraud']
     categorical_features_indices = np.where(X.dtypes == 'category')[0]
 
     param = {
@@ -68,7 +70,7 @@ def catboost_with_params_for_train(trial, X_train, X_test, y_train, y_test, df):
         "bootstrap_type": trial.suggest_categorical(
             "bootstrap_type", ["Bayesian", "Bernoulli", "MVS"]
         ),
-        "task_type":"GPU",
+        "task_type": "GPU",
         "eval_metric": "AUC",
     }
 
@@ -79,11 +81,9 @@ def catboost_with_params_for_train(trial, X_train, X_test, y_train, y_test, df):
 
     cat_cls = CatBoostClassifier(**param)
 
-    cat_cls.fit(X_train, y_train, eval_set=[(X_test, y_test)], cat_features=categorical_features_indices,verbose=0, early_stopping_rounds=100)
+    cat_cls.fit(X_train, y_train, eval_set=[(X_test, y_test)], cat_features=categorical_features_indices, verbose=0, early_stopping_rounds=100)
 
     preds = cat_cls.predict(X_test)
     pred_labels = np.rint(preds)
     roc_auc_ = roc_auc_score(y_test, pred_labels)
     return roc_auc_
-
-
