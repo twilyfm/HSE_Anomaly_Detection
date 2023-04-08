@@ -2,39 +2,39 @@ import numpy as np
 import matplotlib.pyplot as plt
 from catboost import CatBoostClassifier
 from sklearn.metrics import roc_auc_score
+from pandas.api.types import is_integer_dtype, is_numeric_dtype
 
-
-def reduce_memory_usage(merged):
+def reduce_memory_usage(df):
     """Сокращает объем, занимаемый датасетом в памяти за счет изменения типов столбцов;
 
-    merged -- pandas DataFrame"""
-    for col in merged.columns:
-        numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
-        col_type = merged[col].dtype
+    df -- pandas DataFrame"""
+    for col in df.columns:
+        col_type = df[col].dtype
 
-        if col_type in numerics:
-            min_ = merged[col].min()
-            max_ = merged[col].max()
-            if str(col_type)[:3] == 'int':
+        if is_numeric_dtype(col_type):
+            min_ = df[col].min()
+            max_ = df[col].max()
+
+            if is_integer_dtype(col_type):
                 if min_ > np.iinfo(np.int8).min and max_ < np.iinfo(np.int8).max:
-                    merged[col] = merged[col].astype(np.int8)
+                    df[col] = df[col].astype(np.int8)
                 elif min_ > np.iinfo(np.int16).min and max_ < np.iinfo(np.int16).max:
-                    merged[col] = merged[col].astype(np.int16)
+                    df[col] = df[col].astype(np.int16)
                 elif min_ > np.iinfo(np.int32).min and max_ < np.iinfo(np.int32).max:
-                    merged[col] = merged[col].astype(np.int32)
+                    df[col] = df[col].astype(np.int32)
                 elif min_ > np.iinfo(np.int64).min and max_ < np.iinfo(np.int64).max:
-                    merged[col] = merged[col].astype(np.int64)
+                    df[col] = df[col].astype(np.int64)
             else:
                 if min_ > np.finfo(np.float16).min and max_ < np.finfo(np.float16).max:
-                    merged[col] = merged[col].astype(np.float16)
+                    df[col] = df[col].astype(np.float16)
                 elif min_ > np.finfo(np.float32).min and max_ < np.finfo(np.float32).max:
-                    merged[col] = merged[col].astype(np.float32)
+                    df[col] = df[col].astype(np.float32)
                 else:
-                    merged[col] = merged[col].astype(np.float64)
+                    df[col] = df[col].astype(np.float64)
         else:
-            merged[col] = merged[col].astype('category')
+            df[col] = df[col].astype('category')
 
-    return merged
+    return df
 
 
 def plot_roc_curve(x, y, roc_auc):
@@ -59,8 +59,7 @@ def plot_roc_curve(x, y, roc_auc):
 
 
 def catboost_with_params_for_train(trial, X_train, X_test, y_train, y_test, df):
-    X = df.drop('isFraud', axis=1)
-    # y = df['isFraud']
+    X = df.drop(target_name, axis=1)
     categorical_features_indices = np.where(X.dtypes == 'category')[0]
 
     param = {

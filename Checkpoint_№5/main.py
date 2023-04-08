@@ -15,13 +15,13 @@ from sklearn.metrics import classification_report, auc
 from sklearn.model_selection import train_test_split
 
 PATH_TO_DF_ = "./merge_filled_without_drop.parquet"  # объединенные transaction и identity
-
+target_name='isFraud'
 
 def main(train=False):
     df = pd.read_parquet(PATH_TO_DF_)
     merged = reduce_memory_usage(df)
-    X = merged.drop('isFraud', axis=1)
-    y = merged['isFraud']
+    X = merged.drop(target_name, axis=1)
+    y = merged[target_name]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
