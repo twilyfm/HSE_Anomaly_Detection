@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select File for Inference</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .title {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-group {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const fileInput = document.getElementById('file');
+            const filename = fileInput.value;
+
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `infer_file=${encodeURIComponent(filename)}`
+            });
+
+            const data = await response.json();
+            alert(JSON.stringify(data));
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Inference from File</h1>
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <select class="form-control" name="infer_file" id="file">
+                    {% for file in files %}
+                    <option value="{{ file }}">{{ file }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="btn-group">
+                <a href="/" class="btn btn-secondary btn-custom">Return Home</a>
+                <button class="btn btn-primary btn-custom" type="submit">Predict</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

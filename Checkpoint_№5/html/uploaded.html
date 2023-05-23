@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Uploaded</title>
+    <style>
+      a {
+        text-decoration: none;
+        color: #000;
+        border: 1px solid #ccc;
+        padding: 10px;
+        position: fixed; /* Позиционирование по фиксированным координатам на странице */
+        bottom: 40px; /* Отступ снизу */
+        left: 50%; /* Позиционирование по центру */
+        transform: translateX(-50%); /* Смещение влево на половину ширины элемента, чтобы центрировать его */
+    }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            display: flex;
+            justify-content: center;
+        }
+
+        a:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Success!</h1>
+    <p>Your file {{ filename }} has been uploaded and added.</p>
+    <a href="/">Return Home</a>
+</body>
+</html>
