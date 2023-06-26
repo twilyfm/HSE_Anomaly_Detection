@@ -4,9 +4,14 @@ matplotlib==3.5.3
 imbalanced-learn==0.8.1
 scikit-learn==1.0.2
 pyarrow==9.0.0
+Flake8==6.0.0
+gdown==4.7.1
 pandas~=2.0.1
 numpy~=1.24.3
 fastapi~=0.95.2
 pydantic~=1.10.7
 uvicorn
 python-multipart
+flask
+prometheus_client
+prometheus_fastapi_instrumentator
