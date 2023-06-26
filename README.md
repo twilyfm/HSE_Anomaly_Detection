@@ -8,12 +8,6 @@
 - [Сидорова Анастасия](https://github.com/twilyfm)
 - [Морозов Антон](https://github.com/MAV-r)
 
-### Этапы работы:
-* [План проекта](https://github.com/twilyfm/HSE_Anomaly_Detection/blob/master/Checkpoint_%E2%84%961.md)
-* [Описание датасета](https://github.com/twilyfm/HSE_Anomaly_Detection/blob/master/Checkpoint_%E2%84%962.md)
-* [EDA](https://github.com/twilyfm/HSE_Anomaly_Detection/blob/master/Checkpoint_%E2%84%963.ipynb)
-* [Обучение ml-моделей](https://github.com/twilyfm/HSE_Anomaly_Detection/tree/master/Checkpoint_%E2%84%964)
-
 ## Документация для FastAPI приложения по обработке транзакций
 ### Введение
 Это документация для FastAPI приложения, которое позволяет загрузить данные о транзакциях в формате CSV или Parquet, производить предсказания на основе модели машинного обучения и предоставлять результаты для загрузки.
